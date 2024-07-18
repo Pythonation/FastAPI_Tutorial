@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة مؤشر كتلة الجسم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f0f4f8;
+            color: #2d3748;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2c5282;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #3182ce;
+        }
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: #ebf8ff;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .info {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #e6fffa;
+            border-radius: 4px;
+        }
+        .info h2 {
+            color: #2c7a7b;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>حاسبة مؤشر كتلة الجسم</h1>
+        <input type="number" id="weight" placeholder="الوزن (كجم)" min="20" max="200">
+        <input type="number" id="height" placeholder="الطول (متر)" step="0.01" min="1" max="3">
+        <button onclick="calculateBMI()">احسب مؤشر كتلة الجسم</button>
+        <div class="result" id="result"></div>
+        
+        <div class="info">
+            <h2>ما هو مؤشر كتلة الجسم؟</h2>
+            <p>مؤشر كتلة الجسم (BMI) هو مقياس يستخدم لتقدير ما إذا كان الشخص يتمتع بوزن صحي بالنسبة لطوله. يساعد هذا المؤشر في تقييم مخاطر الإصابة بأمراض معينة مرتبطة بالوزن.</p>
+            <h2>كيفية تفسير النتائج:</h2>
+            <ul>
+                <li>أقل من 18.5: نقص في الوزن</li>
+                <li>18.5 - 24.9: وزن صحي</li>
+                <li>25 - 29.9: زيادة في الوزن</li>
+                <li>30 فما فوق: سمنة</li>
+            </ul>
+            <p>تذكر أن مؤشر كتلة الجسم هو دليل عام فقط. استشر طبيبك للحصول على تقييم صحي شامل.</p>
+        </div>
+    </div>
+
+    <script>
+        async function calculateBMI() {
+            const weight = document.getElementById('weight').value;
+            const height = document.getElementById('height').value;
+            if (!weight || !height) {
+                alert('يرجى إدخال الوزن والطول');
+                return;
+            }
+
+            try {
+                console.log(`Sending request to API with weight=${weight} and height=${height}`);
+                const response = await fetch(`http://127.0.0.1:8000/calculate_bmi?weight=${encodeURIComponent(weight)}&height=${encodeURIComponent(height)}`);
+                console.log(`Received response: ${response.status} ${response.statusText}`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                console.log(`Received data: ${JSON.stringify(data)}`);
+                document.getElementById('result').innerHTML = `<strong>مؤشر كتلة الجسم:</strong> ${data.bmi.toFixed(2)}<br><strong>النتيجة:</strong> ${data.message}`;
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
+                document.getElementById('result').innerHTML = 'حدث خطأ أثناء الاتصال بالخادم';
+            }
+        }
+    </script>
+</body>
+</html>
