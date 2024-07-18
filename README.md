@@ -14,11 +14,11 @@
 <table dir="rtl" align="right">
   <tr>
     <td>**`code_Without_API.py`:**</td>
-    <td>نُقطة البداية!  كود Python  بسيط  (مثال  حساب  BMI)  قبل  تحويله  إلى  API. </td>
+    <td>كود بايثون بسيط وهو الكود الذي سنحوله الى API. </td>
   </tr>
   <tr>
     <td>**`FastAPI_APP.py`:**</td>
-    <td>أول  خطواتك  مع  FastAPI!  بناء  API  بسيطة  تعرض  رسالة  "Marhaba Python".</td>
+    <td>الـ API التي تم بناؤها في آخر المشروع (المشروع الذي تعلمنا بناءه).</td>
   </tr>
   <tr>
     <td>**`HTML_Example.html`:**</td>
