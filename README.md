@@ -11,7 +11,7 @@
 
 ### ✨ ما الذي ستجده هنا؟
 
-<table dir="rtl" align="right">
+<table dir="rtl" align="center">
   <tr>
     <td>`code_Without_API.py`:</td>
     <td>كود بايثون بسيط وهو الكود الذي سنحوله الى API. </td>
