@@ -29,4 +29,8 @@ def calculate_bmi(
     else:
         message = "أنت تعاني من السمنة، قم بمراجعة طبيب"
     return BMIOutput(bmi=bmi,message=message)
-    
+
+# لتشغيل السيرفر مباشرة من ملف البايثون
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)
